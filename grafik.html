@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="style.css">
-
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <title>Fundify</title>
 </head>
@@ -19,7 +19,6 @@
             <div class="logo-image">
                 <img src="images/logo2.png" alt="">
             </div>
-
             <span class="logo_name">Fundify</span>
         </div>
 
@@ -31,11 +30,11 @@
                         <span class="link-name">Home</span>
                     </a>
                 </li>
-                <li><a href="pemasukan.html">
+                <li><a href="pemasukan.php">
                         <i class="uil uil-folder-plus"></i>
                         <span class="link-name">Pemasukan</span>
                     </a></li>
-                <li><a href="pengeluaran.html">
+                <li><a href="pengeluaran.php">
                         <i class="uil uil-folder-minus"></i>
                         <span class="link-name">Pengeluaran</span>
                     </a></li>
@@ -50,11 +49,10 @@
             </ul>
 
             <ul class="logout-mode">
-                <li><a href="#">
+                <li><a href="login.html">
                         <i class="uil uil-signout"></i>
                         <span class="link-name">Logout</span>
                     </a></li>
-
                 </li>
             </ul>
         </div>
@@ -62,21 +60,113 @@
 
     <section class="dashboard">
         <div class="top">
-
             <div class="search-box">
                 <i class="uil uil-search"></i>
                 <input type="text" placeholder="Search here...">
             </div>
-
             <i class="uil uil-user-circle profile"></i>
         </div>
 
         <!-- konten utama -->
-        <div class="dash-content"></div>
+        <div class="dash-content">
+            <div class="title">
+                <i class="uil uil-analytics"></i>
+                <span class="text">Grafik</span>
+            </div>
 
+            <div class="chart-container" style="width: 80%; margin: auto;">
+                <canvas id="myChart"></canvas>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <label for="monthSelect">Pilih Bulan:</label>
+                <select id="monthSelect" onchange="updateChart()">
+                    <option value="0">Januari</option>
+                    <option value="1">Februari</option>
+                    <option value="2">Maret</option>
+                    <option value="3">April</option>
+                    <option value="4">Mei</option>
+                    <option value="5">Juni</option>
+                    <option value="6">Juli</option>
+                    <option value="7">Agustus</option>
+                    <option value="8">September</option>
+                    <option value="9">Oktober</option>
+                    <option value="10">November</option>
+                    <option value="11">Desember</option>
+                </select>
+            </div>
+        </div>
     </section>
 
     <script src="script.js"></script>
+    <script>
+        // Dummy data for each month
+        const incomeDataPerMonth = [
+            [10, 20, 30, 40,],  // Januari
+            [15, 25, 35, 45,],  // Februari
+            [20, 30, 40, 50,],  // Maret
+            [25, 35, 45, 55,],  // April
+            [30, 40, 50, 60,],  // Mei
+            [35, 45, 55, 65,],  // Juni
+            [40, 50, 60, 70,], // Juli
+            [45, 55, 65, 75,], // Agustus
+            [50, 60, 70, 80,],// September
+            [55, 65, 75, 85,],// Oktober
+            [60, 70, 80, 90,],// November
+            [65, 75, 85, 95,] // Desember
+        ];
+
+        const expenseDataPerMonth = [
+            [5, 15, 25, 35, ],  // Januari
+            [10, 20, 30, 40,],  // Februari
+            [15, 25, 35, 45,],  // Maret
+            [20, 30, 40, 50,],  // April
+            [25, 35, 45, 55,],  // Mei
+            [30, 40, 50, 60,],  // Juni
+            [35, 45, 55, 65,], // Juli
+            [40, 50, 60, 70,], // Agustus
+            [45, 55, 65, 75,],// September
+            [50, 60, 70, 80,],// Oktober
+            [55, 65, 75, 85,],// November
+            [60, 70, 80, 90,] // Desember
+        ];
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7'],
+                datasets: [{
+                    label: 'Pemasukan',
+                    data: incomeDataPerMonth[0],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Pengeluaran',
+                    data: expenseDataPerMonth[0],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        function updateChart() {
+            const selectedMonth = document.getElementById('monthSelect').value;
+            myChart.data.datasets[0].data = incomeDataPerMonth[selectedMonth];
+            myChart.data.datasets[1].data = expenseDataPerMonth[selectedMonth];
+            myChart.update();
+        }
+    </script>
 </body>
 
 </html>

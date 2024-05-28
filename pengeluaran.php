@@ -79,7 +79,7 @@ include "koneksi.php";
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 class="text-center">Pemasukan</h3>
+                            <h3 class="text-center">pengeluaran</h3>
                                 <a class="btn btn-primary" href="tambah_data.php" role="button">Tambah</a>
                                 <!--INSERT TABLE-->
                                 <table class="table table-striped">

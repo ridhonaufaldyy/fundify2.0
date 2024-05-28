@@ -221,6 +221,16 @@ nav .menu-items{
 }
 .dashboard .dash-content{
     padding-top: 50px;
+    animation: fadeIn 1.5s ease-in-out;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 .dash-content .title{
     display: flex;
